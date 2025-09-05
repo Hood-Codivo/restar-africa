@@ -1,13 +1,13 @@
-import { Request, Response } from 'express';
-import Flutterwave from 'flutterwave-node-v3';
-import dotenv from 'dotenv';
+import { Request, Response } from "express";
+const Flutterwave = require("flutterwave-node-v3");
+import dotenv from "dotenv";
 
 dotenv.config();
 
 const { FLW_PUBLIC_KEY, FLW_SECRET_KEY, FLW_ENCRYPTION_KEY } = process.env;
 
 if (!FLW_PUBLIC_KEY || !FLW_SECRET_KEY || !FLW_ENCRYPTION_KEY) {
-  console.error('Missing required Flutterwave API keys');
+  console.error("Missing required Flutterwave API keys");
   process.exit(1);
 }
 
@@ -26,58 +26,61 @@ interface PaymentRequest {
   tx_ref: string;
 }
 
-export const makePaymentApi = async (req: Request<{}, {}, PaymentRequest>, res: Response) => {
+export const makePaymentApi = async (
+  req: Request<{}, {}, PaymentRequest>,
+  res: Response
+) => {
   try {
     const payload = {
       ...req.body,
       redirect_url: "https://www.example.com/payment-callback",
-      enckey: FLW_ENCRYPTION_KEY
+      enckey: FLW_ENCRYPTION_KEY,
     };
 
     const response = await flw.Charge.card(payload);
-    console.log('Initial charge response:', response);
+    console.log("Initial charge response:", response);
 
-    if (response.status === 'success') {
-      if (response.meta.authorization.mode === 'pin') {
+    if (response.status === "success") {
+      if (response.meta.authorization.mode === "pin") {
         // For PIN transactions
         const payload2 = {
           ...payload,
           authorization: {
             mode: "pin",
             fields: ["pin"],
-            pin: 3310 // In a real application, this should be collected from the user
-          }
+            pin: 3310, // In a real application, this should be collected from the user
+          },
         };
         const reCallCharge = await flw.Charge.card(payload2);
-        console.log('PIN charge response:', reCallCharge);
+        console.log("PIN charge response:", reCallCharge);
 
         res.json({
-          status: 'success',
-          message: 'PIN required',
+          status: "success",
+          message: "PIN required",
           data: {
-            flw_ref: reCallCharge.data.flw_ref
-          }
+            flw_ref: reCallCharge.data.flw_ref,
+          },
         });
-      } else if (response.meta.authorization.mode === 'redirect') {
+      } else if (response.meta.authorization.mode === "redirect") {
         // For 3DS or VBV transactions
         res.json({
-          status: 'success',
-          message: 'Redirect required',
+          status: "success",
+          message: "Redirect required",
           data: {
-            redirect_url: response.meta.authorization.redirect
-          }
+            redirect_url: response.meta.authorization.redirect,
+          },
         });
       } else {
-        res.json({ status: 'success', data: response.data });
+        res.json({ status: "success", data: response.data });
       }
     } else {
-      res.status(400).json({ status: 'error', message: response.message });
+      res.status(400).json({ status: "error", message: response.message });
     }
   } catch (error) {
-    console.error('Payment processing error:', error);
-    res.status(500).json({ 
-      error: 'An error occurred while processing the payment', 
-      details: error.message 
+    console.error("Payment processing error:", error);
+    res.status(500).json({
+      error: "An error occurred while processing the payment",
+      details: error.message,
     });
   }
 };
@@ -88,21 +91,21 @@ export const validatePayment = async (req: Request, res: Response) => {
 
     const callValidate = await flw.Charge.validate({
       otp,
-      flw_ref
+      flw_ref,
     });
 
-    console.log('Validation response:', callValidate);
+    console.log("Validation response:", callValidate);
 
-    if (callValidate.status === 'success') {
-      res.json({ status: 'success', data: callValidate.data });
+    if (callValidate.status === "success") {
+      res.json({ status: "success", data: callValidate.data });
     } else {
-      res.status(400).json({ status: 'error', message: callValidate.message });
+      res.status(400).json({ status: "error", message: callValidate.message });
     }
   } catch (error) {
-    console.error('Payment validation error:', error);
-    res.status(500).json({ 
-      error: 'An error occurred while validating the payment', 
-      details: error.message 
+    console.error("Payment validation error:", error);
+    res.status(500).json({
+      error: "An error occurred while validating the payment",
+      details: error.message,
     });
   }
 };
@@ -113,10 +116,10 @@ export const getPaymentApi = async (req: Request, res: Response) => {
     const response = await flw.Transaction.verify({ id: transaction_id });
     res.json(response);
   } catch (error) {
-    console.error('Payment verification error:', error);
-    res.status(500).json({ 
-      error: 'An error occurred while verifying the payment', 
-      details: error.message 
+    console.error("Payment verification error:", error);
+    res.status(500).json({
+      error: "An error occurred while verifying the payment",
+      details: error.message,
     });
   }
 };

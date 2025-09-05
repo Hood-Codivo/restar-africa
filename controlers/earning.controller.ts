@@ -1,10 +1,14 @@
-import { Request, Response, NextFunction } from 'express';
-import ErrorHandler from '../utils/ErrorHandler';
-import userModel from '../models/user_model';
+import { Request, Response, NextFunction } from "express";
+import ErrorHandler from "../utils/ErrorHandler";
+import userModel from "../models/user_model";
 
-export const getAllUserPayouts = async (req: Request, res: Response, next: NextFunction) => {
+export const getAllUserPayouts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const users = await userModel.find({}, 'name email role payouts');
+    const users = await userModel.find({}, "name email role payouts");
 
     let totalOverallPayoutNGN = 0;
     let totalOverallPayoutUSD = 0;
@@ -13,13 +17,15 @@ export const getAllUserPayouts = async (req: Request, res: Response, next: NextF
     for (const user of users) {
       let userTotalApprovedPayoutNGN = 0;
       let userTotalApprovedPayoutUSD = 0;
-      
-      const approvedPayouts = user.payouts.filter(payout => payout.status === 'Approved');
+
+      const approvedPayouts = user.payouts.filter(
+        (payout) => payout.status === "Approved"
+      );
 
       for (const payout of approvedPayouts) {
-        if (payout.currency === 'NGN') {
+        if (payout.currency === "NGN") {
           userTotalApprovedPayoutNGN += payout.amount;
-        } else if (payout.currency === 'USD') {
+        } else if (payout.currency === "USD") {
           userTotalApprovedPayoutUSD += payout.amount;
         }
       }
@@ -32,9 +38,9 @@ export const getAllUserPayouts = async (req: Request, res: Response, next: NextF
         name: user.name,
         email: user.email,
         role: user.role,
-        totalApprovedPayoutNGN,
-        totalApprovedPayoutUSD,
-        payoutDetails: approvedPayouts.map(payout => ({
+        userTotalApprovedPayoutNGN,
+        userTotalApprovedPayoutUSD,
+        payoutDetails: approvedPayouts.map((payout) => ({
           amount: payout.amount,
           currency: payout.currency,
           date: payout.date,
@@ -50,30 +56,35 @@ export const getAllUserPayouts = async (req: Request, res: Response, next: NextF
       totalOverallPayoutUSD,
       userPayoutsSummary,
     });
-
   } catch (error: any) {
     return next(new ErrorHandler(error.message, 500));
   }
 };
 
-export const getUserPayoutsById = async (req: Request, res: Response, next: NextFunction) => {
+export const getUserPayoutsById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { userId } = req.params;
 
-    const user = await userModel.findById(userId, 'name email role payouts');
+    const user = await userModel.findById(userId, "name email role payouts");
 
     if (!user) {
-      return next(new ErrorHandler('User not found', 404));
+      return next(new ErrorHandler("User not found", 404));
     }
 
     let userTotalApprovedPayoutNGN = 0;
     let userTotalApprovedPayoutUSD = 0;
-    const approvedPayouts = user.payouts.filter(payout => payout.status === 'Approved');
+    const approvedPayouts = user.payouts.filter(
+      (payout) => payout.status === "Approved"
+    );
 
     for (const payout of approvedPayouts) {
-      if (payout.currency === 'NGN') {
+      if (payout.currency === "NGN") {
         userTotalApprovedPayoutNGN += payout.amount;
-      } else if (payout.currency === 'USD') {
+      } else if (payout.currency === "USD") {
         userTotalApprovedPayoutUSD += payout.amount;
       }
     }
@@ -84,9 +95,9 @@ export const getUserPayoutsById = async (req: Request, res: Response, next: Next
       name: user.name,
       email: user.email,
       role: user.role,
-      totalApprovedPayoutNGN,
-      totalApprovedPayoutUSD,
-      payoutDetails: approvedPayouts.map(payout => ({
+      userTotalApprovedPayoutNGN,
+      userTotalApprovedPayoutUSD,
+      payoutDetails: approvedPayouts.map((payout) => ({
         amount: payout.amount,
         currency: payout.currency,
         date: payout.date,
@@ -94,7 +105,6 @@ export const getUserPayoutsById = async (req: Request, res: Response, next: Next
         status: payout.status,
       })),
     });
-
   } catch (error: any) {
     return next(new ErrorHandler(error.message, 500));
   }

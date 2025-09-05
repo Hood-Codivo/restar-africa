@@ -794,9 +794,7 @@ export const updateBooking = async (
       let updateQuery: mongoose.UpdateQuery<any>;
       let findQuery: mongoose.FilterQuery<any> | undefined;
 
-      if (
-        property.property_type === "apartment"
-      ) {
+      if (property.property_type === "apartment") {
         // Ensure apartment_availability is not null or undefined before attempting to use it
         if (!property.apartment_availability) {
           await session.abortTransaction();
@@ -1093,7 +1091,7 @@ export const updateBooking = async (
     console.error("Error updating booking:", error);
     next(new ErrorHandler(error.message, 500));
   } finally {
-    if (session.id && !session.ended) {
+    if (session.id && !session.hasEnded) {
       session.endSession();
     }
   }
@@ -1162,9 +1160,7 @@ const autoCompleteBookings = async () => {
           let updateAvailabilityQuery: mongoose.UpdateQuery<any>;
           let findAvailabilityQuery: mongoose.FilterQuery<any> | undefined;
 
-          if (
-            listing.property_type === "apartment"
-          ) {
+          if (listing.property_type === "apartment") {
             // For apartment/event center, remove dates from apartment_availability.available_dates
             updateAvailabilityQuery = {
               $pullAll: {
@@ -1585,7 +1581,7 @@ export const getMyBookingById = async (req: Request, res: Response) => {
     if (req.user.id !== userId) {
       return res
         .status(403)
-        .json({ message: "Forbidden: You can only access your own bookings" }); 
+        .json({ message: "Forbidden: You can only access your own bookings" });
     }
 
     const bookings = await Booking.find({ user: userId })

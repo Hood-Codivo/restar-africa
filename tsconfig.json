@@ -1,10 +1,11 @@
 {
-    "compilerOptions": {
-        "module": "NodeNext",
-        "moduleResolution": "NodeNext",
-        "baseUrl": "src",
-        "outDir": "dist",
-        "sourceMap": true,
-        "noImplicitAny": true
-    }
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "baseUrl": "src",
+    "outDir": "dist",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true
+  }
 }
