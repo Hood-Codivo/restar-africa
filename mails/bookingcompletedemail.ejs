@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Your restr. Booking is Completed!</title>
+    <style type="text/css">
+        /* Basic Reset */
+        body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+        table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+        img { -ms-interpolation-mode: bicubic; }
+
+        /* General Styling */
+        body { margin: 0; padding: 0; background-color: #f0f4f8; color: #333333; font-family: 'Arial', sans-serif; line-height: 1.6; }
+        .container { max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .header { background-color: #3798d4; padding: 30px 20px; text-align: center; color: #ffffff; }
+        .header h1 { margin: 0; font-size: 28px; font-weight: bold; }
+        .content { padding: 30px; }
+        .content p { margin: 0 0 15px; }
+        .content strong { font-weight: bold; }
+        .details-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .details-table th, .details-table td { padding: 12px; border-bottom: 1px solid #e8f5ff; text-align: left; }
+        .details-table th { background-color: #f8fbff; font-weight: bold; color: #555555; width: 35%; }
+        .details-table td { background-color: #ffffff; width: 65%; }
+
+        .button-container { text-align: center; margin: 30px 0; }
+        .button {
+            display: inline-block;
+            background-color: #3798d4; /* Primary button color */
+            color: #ffffff !important; /* Important for Outlook */
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            border: 1px solid #3798d4;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .button:hover { background-color: #2b7bb5; border-color: #2b7bb5; } /* Darker on hover */
+
+        .footer { background-color: #f0f4f8; padding: 20px; text-align: center; font-size: 12px; color: #888888; border-top: 1px solid #e0e4e8; border-radius: 0 0 12px 12px; }
+        .footer a { color: #3798d4; text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
+
+        /* Responsive Styles */
+        @media screen and (max-width: 600px) {
+            .container { width: 100% !important; border-radius: 0; margin: 0; }
+            .content, .header, .footer { padding: 20px 15px !important; }
+            .details-table th, .details-table td { display: block; width: 100% !important; text-align: left; padding: 10px 0; border-bottom: none; }
+            .details-table th { font-weight: bold; padding-top: 15px; background-color: #ffffff; }
+            .details-table td { padding-bottom: 15px; }
+            .details-table tr:first-child th { padding-top: 0; }
+            .details-table tr:last-child td { border-bottom: 1px solid #e8f5ff; }
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
+            <tr>
+                <td align="center" style="padding: 20px 0;">
+                    <table class="container" border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td class="header">
+                                <h1>restr. Bookings</h1>
+                                <p style="font-size: 16px; margin-top: 5px;">Your Stay Is Confirmed!</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content">
+                                <p>Hello **<%= userName || 'Valued Customer' %>**!</p>
+                                <p><%= message %></p>
+
+                                <p>Here are the details for your recently completed booking:</p>
+
+                                <table class="details-table" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <th>Property Name:</th>
+                                        <td><%= propertyName %></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Property Address:</th>
+                                        <td><%= propertyAddress %></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Check-in Date:</th>
+                                        <td><%= checkInDate %></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Check-out Date:</th>
+                                        <td><%= checkOutDate %></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Booking ID:</th>
+                                        <td><%= bookingId %></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total Amount:</th>
+                                        <td>₦<%= totalAmount.toLocaleString() %></td>
+                                    </tr>
+                                </table>
+
+                                <p>We hope you have a fantastic experience with us. Your feedback helps us improve, so feel free to share your thoughts!</p>
+
+                                <div class="button-container">
+                                    <a href="<%= bookingDetailsLink %>" class="button">View Booking Details</a>
+                                </div>
+                                <p style="font-size: 14px; text-align: center;">If you have any questions or require further assistance, please don't hesitate to reach out to our support team.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="footer">
+                                <p>&copy; <%= new Date().getFullYear() %> restr. All rights reserved.</p>
+                                <p>
+                                    <a href="<%= contactUsLink %>" target="_blank">Contact Us</a> &nbsp;|&nbsp;
+                                    <a href="<%= privacyPolicyLink %>" target="_blank">Privacy Policy</a>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Booking Status Has Been Updated</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            background-color: #f0f4f8; /* Light blue-grey background */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #3798d4; /* Dominant color */
+            padding: 30px 20px;
+            color: #ffffff;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        .content {
+            padding: 30px;
+            line-height: 1.8;
+        }
+        .content p {
+            margin-bottom: 15px;
+        }
+        .status-box {
+            background-color: #e8f5ff; /* Lighter shade of dominant color */
+            border-left: 5px solid #3798d4;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .status-box p {
+            margin: 0;
+            font-size: 16px;
+        }
+        .status-label {
+            font-weight: bold;
+            color: #3798d4;
+        }
+        .status-value {
+            font-weight: bold;
+            text-transform: capitalize;
+            color:
+            <% if (status === 'cancelled') { %> #dc3545; /* Red for cancelled */
+            <% } else if (status === 'completed') { %> #28a745; /* Green for completed */
+            <% } else if (status === 'confirmed') { %> #ffc107; /* Orange/Yellow for confirmed */
+            <% } else { %> #6c757d; /* Grey for other statuses */
+            <% } %>
+        }
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border: 1px solid #e0e4e8;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .details-table th, .details-table td {
+            border-bottom: 1px solid #e0e4e8;
+            padding: 12px;
+            text-align: left;
+            font-size: 15px;
+        }
+        .details-table th {
+            background-color: #f8fbff;
+            font-weight: 600;
+            width: 35%;
+        }
+        .details-table tr:last-child th, .details-table tr:last-child td {
+            border-bottom: none;
+        }
+        .footer {
+            background-color: #f0f4f8;
+            padding: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #e0e4e8;
+            border-radius: 0 0 12px 12px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #3798d4;
+            color: #ffffff !important; /* !important to override default link styles */
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background-color: #2b7bb5;
+        }
+        a {
+            color: #3798d4;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive styles */
+        @media only screen and (max-width: 600px) {
+            .container {
+                margin: 0;
+                border-radius: 0;
+            }
+            .content {
+                padding: 20px;
+            }
+            .header h1 {
+                font-size: 24px;
+            }
+            .details-table th, .details-table td {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>restr. Booking Status Update</h1>
+        </div>
+        <div class="content">
+            <p>Hello <%= userName || 'Valued Customer' %>,</p>
+            <p>This is an important update regarding your recent booking with us. Your booking status has been changed.</p>
+
+            <div class="status-box">
+                <p><span class="status-label">Your Booking Status Is Now:</span> <span class="status-value"><%= status %></span></p>
+            </div>
+
+            <% if (status === 'cancelled' && cancellationReason) { %>
+                <p><strong>Reason for Cancellation:</strong> <%= cancellationReason %></p>
+            <% } %>
+
+            <%
+            // Ensure refundNote is available for display
+            const displayRefundNote = refundNote || 'Not applicable';
+            %>
+
+            <% if (status === 'cancelled' && isRefunded) { %>
+                <p style="font-weight: bold; color: #28a745; margin-top: 20px;">Refund Details:</p>
+                <table class="details-table">
+                    <tr>
+                        <th>Amount Refunded</th>
+                        <td><%= new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(refundableAmount) %></td>
+                    </tr>
+                    <tr>
+                        <th>Refund Status</th>
+                        <td>Completed (Credited to your restr. Refund Balance)</td>
+                    </tr>
+                    <tr>
+                        <th>Refund Reason</th>
+                        <td><%= displayRefundNote %></td>
+                    </tr>
+                </table>
+                <p>The refunded amount has been added to your **restr.** customer refund balance. You can use this balance for future bookings.</p>
+            <% } else if (status === 'cancelled' && !isRefunded) { %>
+                <p style="font-weight: bold; color: #dc3545; margin-top: 20px;">No Refund Issued:</p>
+                <p>Based on our cancellation policy, no refund was issued for this booking. Reason: <%= displayRefundNote %></p>
+            <% } %>
+
+            <p>Here are the details of your booking for your reference:</p>
+
+            <table class="details-table">
+                <tr>
+                    <th>Property Name</th>
+                    <td><%= propertyName %></td>
+                </tr>
+                <tr>
+                    <th>Property Address</th>
+                    <td><%= propertyAddress || 'N/A' %></td>
+                </tr>
+                <tr>
+                    <th>Check-in Date</th>
+                    <td><%= new Date(checkInDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></td>
+                </tr>
+                <tr>
+                    <th>Check-out Date</th>
+                    <td><%= new Date(checkOutDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></td>
+                </tr>
+                <tr>
+                    <th>Number of Guests</th>
+                    <td><%= numberOfGuests %></td>
+                </tr>
+                <% if (roomType) { %>
+                <tr>
+                    <th>Room/Unit Type</th>
+                    <td><%= roomType %></td>
+                </tr>
+                <% } %>
+                <tr>
+                    <th>Total Amount Paid</th>
+                    <td><%= new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(amount) %></td>
+                </tr>
+                <tr>
+                    <th>Payment Method</th>
+                    <td><%= paymentMethod || 'N/A' %></td>
+                </tr>
+                <% if (paymentRef) { %>
+                <tr>
+                    <th>Payment Reference</th>
+                    <td><%= paymentRef %></td>
+                </tr>
+                <% } %>
+            </table>
+
+            <p><%= message %></p>
+
+            <p>If you have any questions or require further assistance, please do not hesitate to contact our support team. We're here to help!</p>
+
+            <p style="text-align: center;">
+                <a href="<%= bookingDetailsLink || '#' %>" class="button">View Booking Details</a>
+            </p>
+        </div>
+        <div class="footer">
+            <p>&copy; <%= new Date().getFullYear() %> restr. All rights reserved.</p>
+            <p><a href="<%= contactUsLink || '#' %>" style="color: #3798d4;">Contact Us</a> | <a href="<%= privacyPolicyLink || '#' %>" style="color: #3798d4;">Privacy Policy</a></p>
+        </div>
+    </div>
+</body>
+</html>

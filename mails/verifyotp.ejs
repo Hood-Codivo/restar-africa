@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>restr. Account Verified!</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8; /* Light blue-grey background */
+            margin: 0;
+            padding: 0;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            background-color: #3798d4; /* Dominant color */
+            padding: 30px;
+            text-align: center;
+            color: #ffffff;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .content {
+            padding: 30px;
+            color: #333333;
+            line-height: 1.6;
+        }
+        .content p {
+            margin-bottom: 15px;
+        }
+        .highlight {
+            background-color: #e8f5ff; /* Lighter shade of dominant color */
+            border-left: 5px solid #3798d4;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .highlight p {
+            margin: 0;
+            font-size: 1.1em;
+            color: #333333;
+        }
+        .footer {
+            background-color: #f0f4f8;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #777777;
+            border-top: 1px solid #e0e4e8;
+            border-radius: 0 0 12px 12px;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 25px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #3798d4; /* Dominant color */
+            color: #ffffff !important;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #2b7bb5;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Welcome to restr.!</h1>
+        </div>
+        <div class="content">
+            <p>Dear <%= userName %>,</p>
+            <p>Congratulations! Your **restr.** account has been successfully verified. You can now access all of our features and begin your journey with us.</p>
+            
+            <div class="highlight">
+                <p><strong>Your account is ready to go!</strong></p>
+            </div>
+            
+            <p>Start exploring and book your next stay with ease. We look forward to providing you with a seamless and enjoyable experience.</p>
+            
+            <div class="button-container">
+                <a href="https://www.restr.com/profile" class="button">Go to Your Profile</a>
+            </div>
+            
+            <p>Best regards,</p>
+            <p>The restr. Team</p>
+        </div>
+        <div class="footer">
+            <p>&copy; <%= new Date().getFullYear() %> restr. All rights reserved.</p>
+            <p>This is an automated email, please do not reply.</p>
+        </div>
+    </div>
+</body>
+</html>

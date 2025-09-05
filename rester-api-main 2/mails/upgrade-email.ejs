@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to restr. Host!</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            line-height: 1.6;
+            color: #333;
+            background-color: #f0f4f8; /* Light blue-grey background */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #3798d4; /* Dominant color */
+            color: #ffffff;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        .header p {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .content {
+            padding: 30px;
+        }
+        .content h2 {
+            color: #3798d4;
+            font-size: 24px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        .content p {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #555;
+        }
+        .benefits-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 25px 0;
+        }
+        .benefits-list li {
+            background-color: #e8f5ff; /* Lighter shade of dominant color */
+            padding: 15px;
+            border-left: 4px solid #3798d4;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        .benefits-list li strong {
+            color: #3798d4;
+        }
+        .cta-button {
+            display: block;
+            width: fit-content;
+            margin: 30px auto;
+            padding: 15px 30px;
+            background-color: #3798d4;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(55, 152, 212, 0.2);
+            transition: background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #2b7bb5;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px 30px;
+            font-size: 14px;
+            color: #999;
+            border-top: 1px solid #e0e4e8;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome to the Restr. Host Community!</h1>
+            <p>Congratulations, <%= user %>! You are now officially a restr. Host.</p>
+        </div>
+        <div class="content">
+            <h2>Your Journey as a Host Begins Now</h2>
+            <p>
+                We're so excited to have you join our growing community of hosts. Your listing will help travelers find unique and memorable places to stay, and we're here to help you every step of the way.
+            </p>
+            <p>
+                As a restr. Host, you're more than just a property owner; you're a trusted partner. We've equipped our platform with powerful tools to help you succeed.
+            </p>
+
+            <h2>Here's what you can expect as a restr. Host:</h2>
+            <ul class="benefits-list">
+                <li>
+                    <strong>Increased Visibility:</strong> Your listings will be prominently featured to a global audience, helping you reach more guests and get more bookings.
+                </li>
+                <li>
+                    <strong>Seamless Management:</strong> Our intuitive dashboard makes it easy to manage your calendar, bookings, and guest communications all in one place.
+                </li>
+                <li>
+                    <strong>Secure Payments:</strong> We handle all transactions securely, so you can focus on providing a great experience for your guests without any worries.
+                </li>
+                <li>
+                    <strong>24/7 Support:</strong> Our dedicated support team is available around the clock to assist you with any questions or issues.
+                </li>
+            </ul>
+
+            <p>
+                Ready to get started? Log in to your dashboard to create your first listing and begin your hosting journey. We're confident you'll thrive here on **restr.**.
+            </p>
+
+            <a href="YOUR_DASHBOARD_LINK_HERE" class="cta-button">
+                Go to Your Dashboard
+            </a>
+        </div>
+        <div class="footer">
+            <p>This email was sent to you from **restr.**. If you have any questions, please contact our support team.</p>
+        </div>
+    </div>
+</body>
+</html>

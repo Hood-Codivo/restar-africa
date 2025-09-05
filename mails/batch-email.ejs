@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email from Akiba User</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; line-height: 1.6; color: #333333; background-color: #f9f9f9;">
+    <table role="presentation" style="width: 100%; border-collapse: collapse;">
+        <tr>
+            <td align="center" style="padding: 20px;">
+                <table role="presentation" style="width: 100%; max-width: 600px; border-collapse: collapse; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                    <!-- Header -->
+                    <tr>
+                        <td style="background-color: #4CAF50; padding: 20px; text-align: center;">
+                            <img src="https://static.vecteezy.com/system/resources/previews/008/296/267/non_2x/colorful-swirl-logo-design-concept-illustration-vector.jpg" alt="Akiba Logo" style="width: 100px; height: auto; margin-bottom: 10px;">
+                            <h1 style="margin: 0; color: #ffffff; font-size: 24px;">Akiba</h1>
+                        </td>
+                    </tr>
+                    
+                    <!-- Email Content -->
+                    <tr>
+                        <td style="padding: 30px;">
+                            <!-- Subject -->
+                            <h2 style="color: #4CAF50; margin-top: 0; margin-bottom: 20px; font-size: 20px;">Subject: <%= subject %></h2>
+                            
+                            <!-- Sender Info -->
+                            <p style="font-size: 16px; margin-bottom: 20px;">
+                                <strong>From:</strong> support@akiba.com
+                            </p>
+                            
+                            <!-- Message Body -->
+                            <div style="background-color: #f4f4f4; border-radius: 5px; padding: 20px; margin-bottom: 20px;">
+                                <p style="font-size: 16px; margin: 0;"><%= text %></p>
+                            </div>
+                            
+                            <!-- Footer Message -->
+                            <p style="font-size: 14px; color: #666666; margin-bottom: 0;">
+                                This email was sent through the Akiba platform. For enquiries and suggestions, contact us at <a href="mailto:support@akiba.com">support@akiba.com</a>
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background-color: #4CAF50; padding: 20px; text-align: center;">
+                            <p style="margin: 0 0 10px; color: #ffffff; font-size: 14px;">&copy; 2024 Akiba. All rights reserved.</p>
+                            <p style="margin: 0; color: #ffffff; font-size: 14px;">
+                                <a href="https://www.akiba.com/privacy" style="color: #ffffff; text-decoration: underline;">Privacy Policy</a> | 
+                                <a href="https://www.akiba.com/terms" style="color: #ffffff; text-decoration: underline;">Terms of Service</a>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
